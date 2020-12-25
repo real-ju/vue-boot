@@ -33,6 +33,34 @@ const obj = {
         }
 
         return rst
+    },
+
+    // 对象深拷贝
+    clone(value) {
+        if(value === null || typeof value !== 'object') {
+            return value
+        }
+
+        let obj = {};
+
+        // 遍历可枚举属性
+        for(const key in value) {
+            const item = value[key];
+            if(typeof item === 'function') {
+                // 如果是函数，则通过bind拷贝
+                obj[key] = item.bind(obj);
+            }
+            else if(Array.isArray(item)) {
+                obj[key] = item.map(i => {
+                    return this.clone(i);
+                })
+            }
+            else {
+                obj[key] = this.clone(item);
+            }
+        }
+
+        return obj
     }
 }
 

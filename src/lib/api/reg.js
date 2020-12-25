@@ -1,7 +1,8 @@
 import Api from './source/Api'
 
 export default {
-    userManage: new Api({
-        url: 'userManage/'
+    login: new Api({
+        url: 'login',
+        public: true
     })
 }
