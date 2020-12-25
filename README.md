@@ -5,5 +5,5 @@ webpack + vue2.0
 - 封装axios
 - 前端mock数据
 - 两套路由鉴权
-- Restful Api
+- Restful Api全局管理
 - webpack配置及优化
