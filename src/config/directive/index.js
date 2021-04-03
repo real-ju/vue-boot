@@ -3,7 +3,7 @@ import Vue from 'vue'
 import auth from '@lib/auth'
 
 // 资源文件
-// import loadingImg from '@img/loading.gif'
+// import loadingImg from './assets/loading.gif'
 
 
 function reg() {

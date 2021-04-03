@@ -13,6 +13,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const AutoDllPlugin = require('autodll-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 //Loader
 const styleLoader = {
@@ -109,13 +110,7 @@ module.exports = {
                         options: {
                             cacheDirectory: true
                         }
-                    },
-                    // {
-                    //     loader: 'eslint-loader',
-                    //     options: {
-                    //         cache: false
-                    //     }
-                    // }
+                    }
                 ]
             },
             {
@@ -159,6 +154,7 @@ module.exports = {
             }
         }),
         new VueLoaderPlugin(),
+        new ESLintPlugin(),
         new webpack.DefinePlugin({
             ENV_MODE: JSON.stringify(ENV_MODE)
         }),

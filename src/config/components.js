@@ -3,7 +3,7 @@ import Vue from 'vue'
 
 import xxx from '@c/xxx'
 
-import yyy from '@v/_common/yyy'
+import yyy from '@v/_common/components/yyy'
 
 
 function reg() {
