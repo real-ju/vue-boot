@@ -1,15 +1,14 @@
 import anime from 'animejs/lib/anime.es.js';
 
 const animeSet = {
-    fadeIn
-}
+  fadeIn,
+};
 
 // 淡入
-function fadeIn() {
-}
+function fadeIn() {}
 
 export default {
-    created: function() {
-        this.Anime = animeSet;
-    }
-}
+  created: function () {
+    this.Anime = animeSet;
+  },
+};

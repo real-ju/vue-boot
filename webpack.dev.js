@@ -12,26 +12,24 @@ const merge = require('webpack-merge');
 const webpackCommonConfig = require('./webpack.common.js');
 
 module.exports = merge(webpackCommonConfig, {
-    mode: 'development',
-    output: {
-        filename: '[name].js',
-        chunkFilename: '[name].chunk.js'
+  mode: 'development',
+  output: {
+    filename: '[name].js',
+    chunkFilename: '[name].chunk.js',
+  },
+  devtool: 'cheap-module-eval-source-map',
+  devServer: {
+    contentBase: CONTENT_PATH,
+    hot: true,
+    host: '0.0.0.0',
+    // historyApiFallback: true,
+    proxy: {
+      '/api': {
+        target: '',
+        pathRewrite: { '^/api': '' },
+        changeOrigin: true,
+      },
     },
-    devtool: 'cheap-module-eval-source-map',
-    devServer: {
-        contentBase: CONTENT_PATH,
-        hot: true,
-        host: '0.0.0.0',
-        // historyApiFallback: true,
-        proxy: {
-            '/api': {
-                target: '',
-                pathRewrite: { '^/api': '' },
-                changeOrigin: true
-            }
-        }
-    },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin()
-    ]
-})
+  },
+  plugins: [new webpack.HotModuleReplacementPlugin()],
+});

@@ -1,3 +1,3 @@
-import router from './index.local'
+import router from './index.local';
 
-export default router
+export default router;

@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from 'vue';
 
 /**
  * 定义iModal对象
@@ -14,71 +14,70 @@ function iModal() {}
  * 组件数据对象 render函数中createElement的第二个参数
  * 详见：https://vue.docschina.org/v2/guide/render-function.html
  */
-iModal.prototype.open = function(comp, compDataObj) {
-    if(!comp) {
-        throw '[iModal Error] 未定义组件值';
-    }
+iModal.prototype.open = function (comp, compDataObj) {
+  if (!comp) {
+    throw '[iModal Error] 未定义组件值';
+  }
 
-    if(comp.constructor == Object) {
-        this._mountiModalComponent(comp, compDataObj);
+  if (comp.constructor == Object) {
+    this._mountiModalComponent(comp, compDataObj);
+  } else if (typeof comp == 'string') {
+    let compName = 'async-' + comp.replace(/[\/.]/g, '-');
+    let asynciModalComponent = Vue.component(compName);
+    if (!asynciModalComponent) {
+      asynciModalComponent = Vue.component(compName, () =>
+        import('@modal/' + comp)
+      );
     }
-    else if(typeof comp == 'string') {
-        let compName = 'async-' + comp.replace(/[\/.]/g, '-');
-        let asynciModalComponent = Vue.component(compName);
-        if(!asynciModalComponent) {
-            asynciModalComponent = Vue.component(compName, () => import('@modal/' + comp));
-        }
-        asynciModalComponent().then(res => {
-            let iModalOptions = res.default;
-            this._mountiModalComponent(iModalOptions, compDataObj);
-        })
-    }
-}
+    asynciModalComponent().then((res) => {
+      let iModalOptions = res.default;
+      this._mountiModalComponent(iModalOptions, compDataObj);
+    });
+  }
+};
 
-iModal.prototype._mountiModalComponent = function(options, dataObj) {
-    //定义Modal属性
-    let iModalMixin = {
-        data: function() {
-            return {
-                Modal: {
-                    show: false
-                }
-            }
+iModal.prototype._mountiModalComponent = function (options, dataObj) {
+  //定义Modal属性
+  let iModalMixin = {
+    data: function () {
+      return {
+        Modal: {
+          show: false,
         },
-        mounted: function() {
-            this.Modal.show = true;
-        },
-        watch: {
-            'Modal.show': function(val) {
-                if(!val) {
-                    this.Modal.close();
-                }
-            }
+      };
+    },
+    mounted: function () {
+      this.Modal.show = true;
+    },
+    watch: {
+      'Modal.show': function (val) {
+        if (!val) {
+          this.Modal.close();
         }
-    }
-    if(options.mixins) {
-        options.mixins.push(iModalMixin);
-    }
-    else {
-        options.mixins = [iModalMixin]
-    }
+      },
+    },
+  };
+  if (options.mixins) {
+    options.mixins.push(iModalMixin);
+  } else {
+    options.mixins = [iModalMixin];
+  }
 
-    let RenderComponent = Vue.extend({
-        render: function(createElement) {
-            return createElement(options, dataObj)
-        }
-    })
-    let renderInstance = new RenderComponent().$mount();
-    let iModalInstance = renderInstance.$children[0];
+  let RenderComponent = Vue.extend({
+    render: function (createElement) {
+      return createElement(options, dataObj);
+    },
+  });
+  let renderInstance = new RenderComponent().$mount();
+  let iModalInstance = renderInstance.$children[0];
 
-    //定义close方法
-    iModalInstance.Modal.close = function() {
-        document.querySelector('body').removeChild(renderInstance.$el);
-        renderInstance.$destroy();
-    }
+  //定义close方法
+  iModalInstance.Modal.close = function () {
+    document.querySelector('body').removeChild(renderInstance.$el);
+    renderInstance.$destroy();
+  };
 
-    document.querySelector('body').appendChild(renderInstance.$el);
-}
+  document.querySelector('body').appendChild(renderInstance.$el);
+};
 
-
-export default iModal
+export default iModal;

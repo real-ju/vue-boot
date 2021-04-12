@@ -1,22 +1,22 @@
 // Vue
-import Vue from 'vue'
-import App from './App.vue'
-import store from './store'
-import router from './router'
+import Vue from 'vue';
+import App from './App.vue';
+import store from './store';
+import router from './router';
 // import directive from './config/directive'
 // import components from './config/components'
 
 // 第三方库
-import VueWebStorage from 'vue-web-storage'
-import api from '@lib/api/plugin'
+import VueWebStorage from 'vue-web-storage';
+import api from '@lib/api/plugin';
 // import iModal from '@lib/iModal/plugin'
-import { getEnvParams } from './config/util'
+import { getEnvParams } from './config/util';
 
 // 启动配置文件
-import boot from './config/boot'
+import boot from './config/boot';
 
 // 全局CSS
-import '@/style/main.css'
+import '@/style/main.css';
 
 // 调用Vue插件
 Vue.use(VueWebStorage, { prefix: `${getEnvParams('appID')}_` });
@@ -36,14 +36,13 @@ boot.configVue();
 boot.configAxios(); // 配置Axios
 boot.configUtil(); // 配置自定义util库
 
-
 /* eslint-disable no-new */
 
 new Vue({
-    el: '#app',
-    store,
-    router,
-    render: h => h(App)
-})
+  el: '#app',
+  store,
+  router,
+  render: (h) => h(App),
+});
 
 /* eslint-enable no-new */
