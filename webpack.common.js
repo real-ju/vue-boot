@@ -14,6 +14,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const AutoDllPlugin = require('autodll-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const PrettierPlugin = require('prettier-webpack-plugin');
 
 //Loader
 const styleLoader = {
@@ -149,6 +150,7 @@ module.exports = {
     }),
     new VueLoaderPlugin(),
     new ESLintPlugin(),
+    new PrettierPlugin(),
     new webpack.DefinePlugin({
       ENV_MODE: JSON.stringify(ENV_MODE),
     }),
