@@ -18,7 +18,8 @@ module.exports = {
     'prettier/prettier': [
       'error',
       {
-        endOfLine: 'crlf',
+        endOfLine: 'auto',
+        // endOfLine: 'crlf',
       },
     ],
     'no-unused-vars': ['off'],
